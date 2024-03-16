@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import Dashboard from './pages/Dashboard/Dashboard'
 import DashboardHome from './pages/Dashboard/DashboardHome'
 import RuleComponent from './pages/Dashboard/ViewRule'
-import CreateRule from './pages/Dashboard/CreateRule'
+import ManageRule from './pages/Dashboard/ManageRule'
 function App() {
 
   return (
@@ -14,11 +14,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} >
           <Route path="/dashboard/home" element={<DashboardHome />} />
-          <Route path="/dashboard/create-rule" element={<CreateRule />} />
+          <Route path="/dashboard/create-rule" element={<ManageRule />} />
           <Route path="/dashboard/view-rules" element={<RuleComponent />} />
-          {/* <Route path="/create-action" element={<h1>Create Action</h1>} />
-          <Route path="/view-rules" element={<h1>View Rules</h1>} />
-          <Route path="/view-actions" element={<h1>View Actions</h1>} /> */}
         </Route>
 
       </Routes>

@@ -3,7 +3,6 @@ const Rule = require('../models/ruleSchema');
 exports.createRule = async (req, res) => {
     try {
         // Check if a rule with the same name already exists
-        console.log(req.body)
         const existingRule = await Rule.exists({ name: req.body.name });
         if (existingRule) {
             return res.status(400).send({
@@ -24,3 +23,15 @@ exports.createRule = async (req, res) => {
         });
     }
 };
+
+// to count the number of rules
+exports.countRules = async (req, res) => {
+    try {
+        const number = await Rule.countDocuments({})
+        res.status(201).json(number);
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Some error occurred while counting the rules."
+        });
+    }
+}
