@@ -1,0 +1,45 @@
+{
+    "name": "UserEligibilityRule",
+    "description": "Determines if a user is eligible based on age, location, and subscription status.",
+    "tested": true,
+    "createdAt": "2024-03-15T00:00:00Z",
+    "updatedAt": "2024-03-15T00:00:00Z",
+    "conditionSchema": [
+        {
+            "property": "age",
+            "operator": "greaterThan",
+            "value": "18",
+            "connectedBy": "AND",
+            "conditionSchema": [
+                {
+                    "property": "location",
+                    "operator": "equals",
+                    "value": "US",
+                    "connectedBy": "AND",
+                    "conditionSchema": [
+                        {
+                            "property": "subscriptionStatus",
+                            "operator": "equals",
+                            "value": "active",
+                            "connectedBy": "AND"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "actionSchema": [
+        {
+            "property": "status",
+            "result": "eligible",
+            "connectedBy": "AND",
+            "actionSchema": [
+                {
+                    "property": "sendEmail",
+                    "result": "Eligibility Confirmation",
+                    "connectedBy": "AND"
+                }
+            ]
+        }
+    ]
+}
