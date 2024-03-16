@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { operator } from "../../constants";
+import { connectedBy, operator } from "../../constants";
 import { propertyImportFromDB } from "../../lib/propertyImportFromDB";
-
+import { Button } from "@/components/ui/button";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CreateRule = () => {
+
     const [ruleFormData, setRuleFormData] = useState({
         name: '',
         description: "",
@@ -103,7 +106,16 @@ const CreateRule = () => {
             })
         }));
     };
-
+    const showToastMessage = () => {
+        toast.success("Rule Added Sucessfully", {
+            position: toast.POSITION.TOP_RIGHT,
+        });
+    }
+    const showToastErrorMessage = () => {
+        toast.error("Rule Creation Failed! Try Again.", {
+            position: toast.POSITION.TOP_RIGHT,
+        });
+    }
     const submitHandler = async (e) => {
         e.preventDefault();
         console.log(ruleFormData);
@@ -116,12 +128,21 @@ const CreateRule = () => {
                 },
                 body: JSON.stringify(ruleFormData)
             });
+
             console.log(response);
+            if (response.ok) {
+                showToastMessage()
+            } else {
+                showToastErrorMessage()
+            }
         } catch (err) {
             console.log(err);
+            toast({
+                variant: "destructive",
+                message: "Rule creation failed, try again",
+                type: "error",
+            })
         }
-
-
     };
 
     return (
@@ -147,70 +168,114 @@ const CreateRule = () => {
                     </div>
                 </div>
 
-
+                <h1 className="text-xl font-bold">Rules</h1>
                 {/* dynamic form */}
                 {ruleFormData.conditionSchema.map((item, index) => (
-                    <div key={index}>
-                        <label htmlFor={`property-${index}`}>Property</label>
-                        <br />
-                        <select className="input-styles" name={`property-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'property', e.target.value)}>
-                            {property.map((op, index) => {
-                                return (
-                                    <option key={index} value={op.value}>{op.name}</option>
-                                );
-                            })}
-                        </select>
+                    <div key={index} className="w-full flex gap-4 justify-center items-end border-2">
+                        <div className="w-1/4 border-2">
+                            <label htmlFor={`property-${index}`}>Property</label>
+                            <br />
+                            <select className="input-styles w-full" name={`property-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'property', e.target.value)}>
+                                {property.map((op, index) => {
+                                    return (
+                                        <option key={index} value={op.value}>{op.name}</option>
+                                    );
+                                })}
+                            </select>
+                        </div>
 
+                        <div className="w-1/4">
+                            <label htmlFor={`operator-${index}`}>Operator</label>
+                            <br />
+                            <select className="input-styles w-full" name={`operator-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'operator', e.target.value)}>
+                                {operator.map((op, index) => {
+                                    return (
+                                        <option key={index} value={op.value}>{op.name}</option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                        <div className="w-1/4">
+                            <label htmlFor={`value-${index}`}>Value</label>
+                            <br />
+                            <input className="input-styles w-full" type="text" id={`value-${index}`} name={`value-${index}`} value={item.value} onChange={(e) => handleSchemaChange("conditionSchema", index, 'value', e.target.value)} />
 
-                        <label htmlFor={`operator-${index}`}>Operator</label>
-                        <select name={`operator-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'operator', e.target.value)}>
-                            {operator.map((op, index) => {
-                                return (
-                                    <option key={index} value={op.value}>{op.name}</option>
-                                );
-                            })}
-                        </select>
+                        </div>
 
-                        {/* <input type="text" id={`operator-${index}`} className="border-2" name={`operator-${index}`} value={item.operator} onChange={(e) => handleSchemaChange("conditionSchema", index, 'operator', e.target.value)} /> */}
-
-                        <label htmlFor={`value-${index}`}>Value</label>
-                        <input type="text" id={`value-${index}`} className="border-2" name={`value-${index}`} value={item.value} onChange={(e) => handleSchemaChange("conditionSchema", index, 'value', e.target.value)} />
-
-                        <label htmlFor={`connectedBy-${index}`}>Connected By</label>
-                        <input type="text" id={`connectedBy-${index}`} className="border-2" name={`connectedBy-${index}`} value={item.connectedBy} onChange={(e) => handleSchemaChange("conditionSchema", index, 'connectedBy', e.target.value)} />
-
-                        <button type="button" onClick={addFieldsConditionSchema} className="border-2 bg-gray-600 p-2 text-white">Add Fields</button>
+                        <div className="w-1/4">
+                            <label htmlFor={`connectedBy-${index}`}>Connected By</label>
+                            <br />
+                            {/* <input type="text" id={`connectedBy-${index}`} className="border-2 input-styles w-full" name={`connectedBy-${index}`} value={item.connectedBy} onChange={(e) => handleSchemaChange("conditionSchema", index, 'connectedBy', e.target.value)} /> */}
+                            <select className="input-styles w-full" name={`connectedBy-${index}`} id={`connectedBy-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'connectedBy', e.target.value)}>
+                                {connectedBy.map((op, index) => {
+                                    return (
+                                        <option key={index} value={op.value}>{op.name}</option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                        <Button type="button" onClick={addFieldsConditionSchema} className=" text-white">Add Fields +</Button>
+                        <Button type="button" disabled variant="destructive" onClick={addFieldsConditionSchema} className=" text-white">Delete Fields </Button>
 
                         {/* button for nesting conditions */}
-                        <button type="button">Combine conditions</button>
+                        <Button disabled type="button">Combine conditions</Button>
                     </div>
                 ))}
+                <br />
+                <br />
+                <br />
+
+                <h1 className="text-xl font-bold">Actions</h1>
 
                 {/* for action schema */}
                 {ruleFormData.actionSchema.map((item, index) => {
                     return (
-                        <div key={index}>
-                            <label htmlFor={`property-${index}`}>Property</label>
-                            <input type="text" id={`property-${index}`} className="border-2" name={`property-${index}`} value={item.property} onChange={(e) => handleSchemaChange("actionSchema", index, 'property', e.target.value)} />
+                        <div key={index} className="w-full flex gap-4 justify-center items-end border-2">
+                            <div className="w-1/3">
+                                <label htmlFor={`property-${index}`}>Property</label>
+                                <br />
+                                {/* <input type="text" id={`property-${index}`} className="border-2 input-styles w-full" name={`property-${index}`} value={item.property} onChange={(e) => handleSchemaChange("actionSchema", index, 'property', e.target.value)} /> */}
+                                <select className="input-styles w-full" name={`property-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("actionSchema", index, 'property', e.target.value)}>
+                                    {property.map((op, index) => {
+                                        return (
+                                            <option key={index} value={op.value}>{op.name}</option>
+                                        );
+                                    })}
+                                </select>
+                            </div>
 
-                            <label htmlFor={`result-${index}`}>Result</label>
-                            <input type="text" id={`result-${index}`} className="border-2" name={`result-${index}`} value={item.result} onChange={(e) => handleSchemaChange("actionSchema", index, 'result', e.target.value)} />
+                            <div className="w-1/3">
+                                <label htmlFor={`result-${index}`}>Result</label>
+                                <br />
+                                <input type="text" id={`result-${index}`} className="border-2 input-styles w-full" name={`result-${index}`} value={item.result} onChange={(e) => handleSchemaChange("actionSchema", index, 'result', e.target.value)} />
+                            </div>
+                            <div className="w-1/3">
+                                <label htmlFor={`connectedBy-${index}`}>Connected By</label>
+                                <br />
 
-                            <label htmlFor={`connectedBy-${index}`}>Connected By</label>
-                            <input type="text" id={`connectedBy-${index}`} className="border-2" name={`connectedBy-${index}`} value={item.connectedBy} onChange={(e) => handleSchemaChange("actionSchema", index, 'connectedBy', e.target.value)} />
+                                <select className="input-styles w-full" name={`connectedBy-${index}`} id={`connectedBy-${index}`} onChange={(e) => handleSchemaChange("actionSchema", index, 'connectedBy', e.target.value)}>
+                                    {connectedBy.map((op, index) => {
+                                        return (
+                                            <option key={index} value={op.value}>{op.name}</option>
+                                        );
+                                    })}
+                                </select>
+                            </div>
 
-                            <button type="button" onClick={addFieldsActionSchema} className="border-2 bg-gray-600 p-2 text-white">Add Fields</button>
+                            <Button type="button" onClick={addFieldsActionSchema} className=" text-white">Add Fields +</Button>
 
                             {/* button for nesting actions */}
-                            <button type="button">Combine actions</button>
+                            <Button disabled type="button">Combine actions</Button>
                         </div>
                     )
                 })}
 
 
-
-                <button type="submit" className="border-2">Create Rule</button>
+                <br />
+                <br />
+                <Button type="submit" className="border-2">Create Rule</Button>
             </form>
+            <ToastContainer />
         </section>
     );
 }

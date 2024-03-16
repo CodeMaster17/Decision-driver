@@ -36,3 +36,16 @@ export const operator = [
         operator: '<='
     }
 ]
+
+export const connectedBy = [
+    {
+        id: 1,
+        name: "And",
+        value: "And"
+    },
+    {
+        id: 2,
+        name: "Or",
+        value: "Or"
+    }
+]
