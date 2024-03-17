@@ -17,6 +17,7 @@ app.get('/get-property', dataController.getAllProperty);
 app.post('/rules/create', ruleController.createRule);
 app.get('/rule/count', ruleController.countRules);
 app.get('/rule/get-all-rules', ruleController.getAllRules);
+app.get('/rule/get-rule-by-id/:id', ruleController.getRuleById);
 
 app.get('/rules/create', async (req, res) => {
     return res.send({ "status": "status ok at this port" })

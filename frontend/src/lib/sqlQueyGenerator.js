@@ -1,26 +1,88 @@
 
+const operator = [
+    {
+        id: 1,
+        name: "Equal",
+        value: "Equal",
+        operator: '=='
+    },
+    {
+        id: 2,
+        name: "Not_Equal",
+        value: "Not_Equal",
+        operator: '!='
+    },
+    {
+        id: 3,
+        name: "Greater_Than",
+        value: "Greater_Than",
+        operator: '>'
+    },
+    {
+        id: 4,
+        name: "Less_Than",
+        value: "Less_Than",
+        operator: '<'
+    },
+    {
+        id: 5,
+        name: "Greater_Than_or_Equal",
+        value: "Greater_Than_or_Equal",
+        operator: '>='
+    },
+    {
+        id: 6,
+        name: "Less_Than_or_Equal",
+        value: "Less_Than_or_Equal",
+        operator: '<='
+    }
+]
+
+// switch case according to value
+function valueToOperator(value) {
+    switch (value) {
+        case "Equal":
+            return "==";
+        case "Not_Equal":
+            return "!=";
+        case "Greater_Than":
+            return ">";
+        case "Less_Than":
+            return "<";
+        case "Greater_Than_or_Equal":
+            return ">=";
+        case "Less_Than_or_Equal":
+            return "<=";
+        default:
+            return "==";
+    }
+}
+
+
 
 function buildSqlWhereClause(conditions) {
     let whereClause = '';
-    conditions.forEach((condition, index) => {
-        const { property, operator, value, connectedBy } = condition;
-        if (index > 0) {
-            whereClause += ` ${connectedBy.toUpperCase()} `;
-        }
-        whereClause += `${property} ${operator} '${value}'`;
-        if (condition.conditionSchema) {
-            whereClause += ` (${buildSqlWhereClause(condition.conditionSchema)})`;
-        }
-    });
+    if (conditions) {
+        conditions.forEach((condition, index) => {
+            const { property, operator, value, connectedBy } = condition;
+            if (index > 0) {
+                whereClause += ` ${connectedBy.toUpperCase()} `;
+            }
+            const operatorValue = valueToOperator(operator);
+            whereClause += `${property} ${operatorValue} '${value}'`;
+            if (condition.conditionSchema && condition.conditionSchema.length != 0) {
+                whereClause += ` (${buildSqlWhereClause(condition.conditionSchema)})`;
+            }
+        });
+    }
     return whereClause;
 }
-function executeSqlQueryAndPerformActions(ruleData) {
+export function executeSqlQueryAndPerformActions(ruleData) {
     const whereClause = buildSqlWhereClause(ruleData.conditionSchema);
     console.log(`SELECT * FROM users WHERE ${whereClause};`);
+    const answer = `SELECT * FROM users WHERE ${whereClause};`
+    return answer;
 
-    // Simulate query execution and action based on results
-    // In a real scenario, you would execute the SQL query here and perform actions based on the results
-    console.log('Actions based on query results would be performed here.');
 }
 
 const ruleData =

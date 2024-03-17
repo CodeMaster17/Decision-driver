@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar"
 const Dashboard = () => {
     return (
         <section className="flex">
-            <div className="w-[15vw] border-2  h-screen sticky">
+            <div className="w-[15vw] border-2  h-screen sticky top-0 left-0">
                 <ul>
                     <li>
                         <Link to="/dashboard/home">
@@ -25,8 +25,8 @@ const Dashboard = () => {
                     </li>
                 </ul>
             </div>
-            <div className="w-full h-screen">
-                <Navbar />
+            <div className="w-full">
+                <Navbar  />
                 {/* TODO: Sidebar */}
                 <Outlet />
             </div>

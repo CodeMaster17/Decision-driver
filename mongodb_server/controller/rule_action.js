@@ -47,3 +47,15 @@ exports.getAllRules = async (req, res) => {
         });
     }
 }
+
+// get rule by id
+exports.getRuleById = async (req, res) => {
+    try {
+        const rule = await Rule.findById(req.params.id)
+        res.status(201).json(rule);
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Some error occurred while getting the rule."
+        });
+    }
+}
