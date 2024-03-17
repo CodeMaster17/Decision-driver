@@ -5,9 +5,9 @@ const Home = () => {
         <div className=" w-full  h-screen flex">
             <div className="w-1/2 pl-20 flex items-center">
                 <div className='w-full'>
-                    <h1 className='text-7xl font-bold text-black'>Rule Building</h1>
-                    <h3 className='text-7xl font-bold text-black mt-5'>Made Easy</h3>
-                    <Link to="/dashboard" className="flex justify-center rounded bg-primary p-2 font-medium text-gray w-[130px] mt-8">
+                    <h1 className='text-8xl font-bold text-black'>Rule Building</h1>
+                    <h3 className='text-8xl font-bold text-black mt-5'>Made Easy</h3>
+                    <Link to="/dashboard" className="flex justify-center rounded bg-primary p-2 font-medium text-white w-[150px] mt-8">
                         Dashboard ➜
                     </Link>
                 </div>
