@@ -4,6 +4,7 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { IoCreateOutline } from "react-icons/io5";
 import { AiOutlineFundView } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { CiLogout } from "react-icons/ci";
 import { useState } from "react";
 
 const Dashboard = () => {
@@ -44,6 +45,15 @@ const Dashboard = () => {
                         >
                             <div className="mr-3 block"><AiOutlineFundView className="size-6" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>View Rules</h3>
+                        </Link>
+                    </li>
+                    <hr className=" border-1 border-gray-500" />
+                    <li>
+                        <Link to="/"
+                            className=" flex px-[1rem] py-[0.8rem]  focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
+                        >
+                            <div className="mr-3 block"><CiLogout className="size-6" /></div>
+                            <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Home</h3>
                         </Link>
                     </li>
                 </ul>

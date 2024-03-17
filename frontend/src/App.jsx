@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard/Dashboard'
 import DashboardHome from './pages/Dashboard/DashboardHome'
-import RuleComponent from './pages/Dashboard/ViewRule'
+import RuleComponent from './pages/Dashboard/ViewRuleDetails'
 import CreateRule from './pages/Dashboard/CreateRule'
 import { Toaster } from 'react-hot-toast';
+import ViewAllRules from './pages/Dashboard/ViewAllRules'
 function App() {
 
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/dashboard/create-rule/view-raw" element={<RuleComponent />} />
             <Route path="/dashboard/create-rule/view-graph" element={<RuleComponent />} />
           </Route> */}
+            <Route path="/dashboard/view-rule" element={<ViewAllRules />} />
             <Route path="/dashboard/view-rule/:id" element={<RuleComponent />} />
           </Route>
 

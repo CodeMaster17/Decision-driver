@@ -11,6 +11,8 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import CreateRuleInformation from "@/components/CreateRuleInformation";
+import Heading from "@/components/Heading";
 
 const CreateRule = () => {
 
@@ -20,18 +22,18 @@ const CreateRule = () => {
         tested: false,
         conditionSchema: [
             {
-                property: '',
-                operator: '',
-                value: '',
-                connectedBy: '',
+                property: 'income',
+                operator: 'Not_Equal',
+                value: '10000',
+                connectedBy: 'AND',
                 conditionSchema: []
             }
         ],
         actionSchema: [
             {
-                property: '',
-                result: '',
-                connectedBy: '',
+                property: 'income',
+                result: 'Not_Equal',
+                connectedBy: 'AND',
                 actionSchema: []
             }
         ]
@@ -133,40 +135,9 @@ const CreateRule = () => {
     return (
         <section className="p-8">
 
-            <div className="w-full bg-[#f0f8ff] rounded-lg p-8 flex justify-start items-start gap-4">
-                <div>
-                    <img src="/idea-bulb.png" alt="" className="w-10 h-10" />
-                </div>
-                <div>
-                    <p className="text-sm font-light">This page is for creating the rules mannually.
-                    </p>
-                    <br />
-                    <p className="text-sm font-light">
-
-                        In this DecisionDriver, you have to enter following details to create a rule:
-                        <ul>
-                            <li >
-                                1. <span className="font-semibold">Name :</span> Name of the rule
-                                For eg, &quot;Under-age and high income.&quot;
-                            </li>
-                            <li>
-                                2. <span className="font-semibold">Description :</span> Description about the rule.
-                                For eg, &quot;Applicant is not under-age, and has a high income.&quot;
-                            </li>
-                            <li>
-                                3. <span className="font-semibold">Set Property:</span> Select a property or variable to base the rule on.
-                            </li>
-                            <li>
-                                3. <span className="font-semibold">Set Operator:</span> Select a operator to compare the value.
-                            </li>
-                            <li>
-                                4. <span className="font-semibold">Set Value:</span> Write the numeric value to compare.
-                            </li>
-                        </ul>
-                    </p>
-                </div>
-            </div>
-            <form onSubmit={submitHandler}>
+            <CreateRuleInformation />
+            <form onSubmit={submitHandler} className="mt-8">
+                <Heading >Create Rules</Heading>
                 <div className="w-full flex gap-4">
                     <div>
                         <label htmlFor="name">Name</label>
