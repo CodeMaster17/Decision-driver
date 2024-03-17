@@ -50,6 +50,35 @@ const DashboardHome = () => {
           Dashboard Home
         </Heading>
         <br />
+
+        <div className="w-full bg-[#f0f8ff] rounded-lg p-8 flex justify-start items-start gap-4">
+          <div>
+            <img src="/idea-bulb.png" alt="" className="w-10 h-10" />
+          </div>
+          <div>
+            <p className="text-lg font-light">Youve been hired by a Bank to create a Decision Management Hub for all automated decisions made in bank.
+            </p>
+            <br />
+            <p className="text-lg font-light">
+
+              In this DecisionDriver, analysts are able to:
+              <ul>
+                <li >
+                  1. Write and modify rules
+                </li>
+                <li>
+                  2. Check that the rules run correctly
+                </li>
+                <li>
+                  3. Debug every calculation in the rules
+                </li>
+              </ul>
+            </p>
+          </div>
+        </div>
+        <br />
+        <br />
+
         {
           loading ? "Loading..." :
             <div className="flex w-4/5 gap-4 ">
