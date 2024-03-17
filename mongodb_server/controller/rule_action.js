@@ -35,3 +35,15 @@ exports.countRules = async (req, res) => {
         });
     }
 }
+
+// get all rules
+exports.getAllRules = async (req, res) => {
+    try {
+        const rules = await Rule.find({})
+        res.status(201).json(rules);
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Some error occurred while getting the rules."
+        });
+    }
+}

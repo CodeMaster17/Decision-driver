@@ -71,29 +71,6 @@ const CreateRule = () => {
     useEffect(() => {
         propertyFromDB()
     }, [])
-    // const handleConditionChange = (index, field, value) => {
-    //     setRuleFormData(prevState => ({
-    //         ...prevState,
-    //         conditionSchema: prevState.conditionSchema.map((item, i) => {
-    //             if (i === index) {
-    //                 return { ...item, [field]: value };
-    //             }
-    //             return item;
-    //         })
-    //     }));
-    // };
-
-    // const handleSchemaChange = (schemaType, index, field, value) => {
-    //     setRuleFormData(prevState => ({
-    //         ...prevState,
-    //         [schemaType]: prevState[schemaType].map((item, i) => {
-    //             if (i === index) {
-    //                 return { ...item, [field]: value };
-    //             }
-    //             return item;
-    //         })
-    //     }));
-    // };
 
     const handleSchemaChange = (schemaType, index, field, value) => {
         setRuleFormData(prevState => ({
@@ -146,7 +123,7 @@ const CreateRule = () => {
     };
 
     return (
-        <section>
+        <section className="p-8">
             <form onSubmit={submitHandler}>
                 <div className="w-full flex gap-4">
 
