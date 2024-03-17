@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Button } from "./ui/button"
 import { FaArrowRight } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const ActivityCard = ({ title, description, testStatus, id }) => {
 
