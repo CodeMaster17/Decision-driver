@@ -10,6 +10,7 @@ const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(true);
     const toggle = () => setIsOpen(!isOpen);
     return (
+<<<<<<< HEAD
         <section className="flex ">
             <div className={`h-screen sticky text-white  bg-[#1f273c] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-2 ${isOpen ? "w-[15vw]" : "w-[5vw]"}`}>
                 <div className="flex">
@@ -21,6 +22,11 @@ const Dashboard = () => {
                 </div>
                 
                 <ul className="flex flex-col space-y-2 mt-12">
+=======
+        <section className="flex">
+            <div className="w-[15vw] border-2  h-screen sticky top-0 left-0">
+                <ul>
+>>>>>>> e2c3e339efba93e30bb833f32bad3c4af559a995
                     <li>
                         <Link to="/dashboard/home"
                             className=" flex px-[1rem] py-[0.8rem] focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
@@ -49,8 +55,8 @@ const Dashboard = () => {
                     </li>
                 </ul>
             </div>
-            <div className="w-full h-screen">
-                <Navbar />
+            <div className="w-full">
+                <Navbar  />
                 {/* TODO: Sidebar */}
                 <Outlet />
             </div>

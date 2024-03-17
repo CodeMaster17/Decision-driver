@@ -1,48 +1,79 @@
-import dummyData from '../../../dummy.json'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-const ViewRule = (data, level = 0) => {
+
+import CreateRule from './CreateRule'
+import { useEffect, useState } from 'react'
+import { propertyImportFromDB } from '@/lib/propertyImportFromDB'
+import ViewRaw from './ViewRaw'
+import { useParams } from 'react-router-dom'
+import ViewSQL from './ViewSQL'
+
+
+
+
+const RuleComponent = () => {
+    const [loading, setLoading] = useState(false)
+    const [propertyNumber, setPropertyNumber] = useState(0)
+    const [data, setData] = useState()
+    const { id } = useParams()
+    const countRules = async () => {
+        try {
+            setLoading(true)
+            const res = await fetch(`http://localhost:5002/rule/get-rule-by-id/${id}`)
+            const data = await res.json()
+            setData(data)
+            setLoading(false)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    const propertyFromDB = async () => {
+        const property = await propertyImportFromDB()
+        setPropertyNumber(property.length)
+        // console.log(property)
+    }
+
+    useEffect(() => {
+        countRules();
+        propertyFromDB();
+    }, [])
+
+
+    const [tab, setTab] = useState('create')
     return (
         <>
-            {data.map((item, index) => {
-                const { property, operator, value, connectedBy, conditionSchema, actionSchema } = item
-                let output = []
-                // Process the current item
-                output.push(
-                    <div key={index} style={{ marginLeft: `${level * 20}px` }}>
-                        <p>Property: {property}</p>
-                        <p>Operator: {operator}</p>
-                        <p>Value: {value}</p>
-                        <p>Connected By: {connectedBy}</p>
-                    </div>
-                );
+            <div className="w-full border-2 p-8">
+                <Tabs defaultValue="create" className="w-full">
+                    <TabsList className="w-full">
+                        <TabsTrigger className="w-1/3" value="create"> Rule</TabsTrigger>
+                        <TabsTrigger className="w-1/3" value="raw">View Raw</TabsTrigger>
+                        <TabsTrigger className="w-1/3" value="graph">View SQL</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="create">
+                        <CreateRule />
+                    </TabsContent>
+                    <TabsContent value="raw">
+                        <ViewRaw json={data} />
+                    </TabsContent>
+                    <TabsContent value="graph">
+                        <ViewSQL data={data} />
+                    </TabsContent>
+                </Tabs>
+            </div>
 
-                // Recursively process nested conditions or actions
-                if (conditionSchema) {
-                    output.push(ViewRule(conditionSchema, level + 1));
-                }
-                if (actionSchema) {
-                    output.push(ViewRule(actionSchema, level + 1));
-                }
 
-                return output;
-            })}
+            {/* <div>
+                <button onClick={(e) => { e.preventDefault; setTab('create') }}>Create Rule</button>
+                <button onClick={(e) => { e.preventDefault; setTab('raw') }}>View Raw</button>
+                <button onClick={(e) => { e.preventDefault; setTab('graph') }}>View Graph</button>
+            </div>
+            <div>
+                {tab === 'create' && <CreateRule />}
+                {tab === 'raw' && <ViewRaw />}
+                {tab === 'graph' && <h1>Graph</h1>}
+            </div> */}
         </>
-    )
-}
-const RuleComponent = () => {
-    return (
-        <div>
-            <h1>Rule: {dummyData.name}</h1>
-            <p>Description: {dummyData.description}</p>
-            <p>Tested: {dummyData.tested ? 'Yes' : 'No'}</p>
-            <p>Created At: {dummyData.createdAt}</p>
-            <p>Updated At: {dummyData.updatedAt}</p>
-            <h2>Conditions</h2>
-            {ViewRule(dummyData.conditionSchema)}
-            <h2>Actions</h2>
-            {ViewRule(dummyData.actionSchema)}
-        </div>
+
     );
 };
-ViewRule(dummyData.conditionSchema, 0)
 export default RuleComponent

@@ -27,7 +27,7 @@ function App() {
             <Route path="/dashboard/create-rule/view-raw" element={<RuleComponent />} />
             <Route path="/dashboard/create-rule/view-graph" element={<RuleComponent />} />
           </Route> */}
-            <Route path="/dashboard/view-rule" element={<RuleComponent />} />
+            <Route path="/dashboard/view-rule/:id" element={<RuleComponent />} />
           </Route>
 
         </Routes>
