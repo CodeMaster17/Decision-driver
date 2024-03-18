@@ -44,8 +44,11 @@ export function executeSqlQueryAndPerformActions(ruleData) {
     console.log(`SELECT * FROM users WHERE ${whereClause};`);
     const answer = `SELECT * FROM users WHERE ${whereClause};`
     return answer;
+    // console.log(answer)
 
 }
+
+
 
 const ruleData =
 {

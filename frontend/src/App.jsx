@@ -6,8 +6,10 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import DashboardHome from './pages/Dashboard/DashboardHome'
 import RuleComponent from './pages/Dashboard/ViewRuleDetails'
 import CreateRule from './pages/Dashboard/CreateRule'
-import { Toaster } from 'react-hot-toast';
+
 import ViewAllRules from './pages/Dashboard/ViewAllRules'
+import Guide from './pages/Dashboard/Guide'
+import Examples from './pages/Dashboard/Examples'
 function App() {
 
   return (
@@ -21,6 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} >
+            <Route path="/dashboard/guide" element={<Guide />} />
+            <Route path="/dashboard/examples" element={<Examples />} />
             <Route path="/dashboard/home" element={<DashboardHome />} />
             <Route path="/dashboard/create-rule" element={<CreateRule />} />
             {/* <Route path="/dashboard/create-rule" element={<ManageRule />} >
@@ -30,10 +34,12 @@ function App() {
           </Route> */}
             <Route path="/dashboard/view-rule" element={<ViewAllRules />} />
             <Route path="/dashboard/view-rule/:id" element={<RuleComponent />} />
+            <Route path="/dashboard/view-rule" element={<ViewAllRules />} />
+            <Route path="/dashboard/view-rule/:id" element={<RuleComponent />} />
           </Route>
 
         </Routes>
-        <Toaster />
+
 
       </Router>
 

@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { connectedBy, operator } from "../../constants";
 import { propertyImportFromDB } from "../../lib/propertyImportFromDB";
 import { Button } from "@/components/ui/button";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
     Tooltip,
     TooltipContent,
@@ -13,9 +11,12 @@ import {
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import CreateRuleInformation from "@/components/CreateRuleInformation";
 import Heading from "@/components/Heading";
-
+import { useToast } from "@/components/ui/use-toast"
+import { Toaster } from "@/components/ui/toaster"
+import { Loader2 } from "lucide-react";
 const CreateRule = () => {
-
+    const { toast } = useToast()
+    const [buttonState, setButtonState] = useState(false)
     const [ruleFormData, setRuleFormData] = useState({
         name: '',
         description: "",
@@ -75,7 +76,6 @@ const CreateRule = () => {
     const propertyFromDB = async () => {
         const property = await propertyImportFromDB()
         setProperty(property)
-        console.log(property)
     }
 
     useEffect(() => {
@@ -93,20 +93,40 @@ const CreateRule = () => {
             })
         }));
     };
-    const showToastMessage = () => {
-        toast.success("Rule Added Sucessfully", {
-            position: toast.POSITION.TOP_RIGHT,
-        });
+    const currentDateTime = new Date();
+
+    // Format the date and time as a string in a specific locale and format
+    const formattedDateTime = currentDateTime.toLocaleString("en-US", {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZoneName: 'short'
+    });
+    function successToast() {
+        toast({
+            title: "Rule Created",
+            variant: "success",
+            className: "bg-white",
+            description: formattedDateTime,
+        })
     }
-    const showToastErrorMessage = () => {
-        toast.error("Rule Creation Failed! Try Again.", {
-            position: toast.POSITION.TOP_RIGHT,
-        });
+
+    function errorToast() {
+        toast({
+            title: "Error creating rule! Please try again.",
+            variant: "destructive",
+            description: formattedDateTime,
+        })
     }
+
     const submitHandler = async (e) => {
         e.preventDefault();
         console.log(ruleFormData);
-        // submitting the form to api using fetch
+
+        setButtonState(true)
         try {
             const response = await fetch('http://localhost:5002/rules/create', {
                 method: 'POST',
@@ -115,20 +135,17 @@ const CreateRule = () => {
                 },
                 body: JSON.stringify(ruleFormData)
             });
-
+            setButtonState(false)
             console.log(response);
             if (response.ok) {
-                showToastMessage()
+                successToast()
+
             } else {
-                showToastErrorMessage()
+
+                errorToast()
             }
         } catch (err) {
-            console.log(err);
-            toast({
-                variant: "destructive",
-                message: "Rule creation failed, try again",
-                type: "error",
-            })
+            errorToast()
         }
     };
 
@@ -161,38 +178,8 @@ const CreateRule = () => {
                 <h1 className="text-xl font-bold mt-8">Rules</h1>
                 {/* dynamic form */}
                 {ruleFormData.conditionSchema.map((item, index) => (
-                    <div key={index} className="w-full flex gap-4 justify-center items-end ">
-                        <div className="w-1/4 ">
-                            <label htmlFor={`property-${index}`}>Property</label>
-                            <br />
-                            <select className="input-styles w-full" name={`property-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'property', e.target.value)}>
-                                {property.map((op, index) => {
-                                    return (
-                                        <option key={index} value={op.value}>{op.name}</option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-
-                        <div className="w-1/4">
-                            <label htmlFor={`operator-${index}`}>Operator</label>
-                            <br />
-                            <select className="input-styles w-full" name={`operator-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'operator', e.target.value)}>
-                                {operator.map((op, index) => {
-                                    return (
-                                        <option key={index} value={op.value}>{op.name}</option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                        <div className="w-1/4">
-                            <label htmlFor={`value-${index}`}>Value</label>
-                            <br />
-                            <input className="input-styles w-full" type="text" id={`value-${index}`} name={`value-${index}`} value={item.value} onChange={(e) => handleSchemaChange("conditionSchema", index, 'value', e.target.value)} />
-
-                        </div>
-
-                        <div className="w-1/4">
+                    <>
+                        {index > 0 ? <div className="w-1/4">
                             <label htmlFor={`connectedBy-${index}`}>Connected By</label>
                             <br />
                             <select className="input-styles w-full" name={`connectedBy-${index}`} id={`connectedBy-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'connectedBy', e.target.value)}>
@@ -202,23 +189,57 @@ const CreateRule = () => {
                                     );
                                 })}
                             </select>
+                        </div> : ""}
+                        <div key={index} className="w-full flex gap-4 justify-center items-end ">
+                            <div className="w-1/4 ">
+                                <label htmlFor={`property-${index}`}>Property</label>
+                                <br />
+                                <select className="input-styles w-full" name={`property-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'property', e.target.value)}>
+                                    {property.map((op, index) => {
+                                        return (
+                                            <option key={index} value={op.value}>{op.name}</option>
+                                        );
+                                    })}
+                                </select>
+                            </div>
+
+                            <div className="w-1/4">
+                                <label htmlFor={`operator-${index}`}>Operator</label>
+                                <br />
+                                <select className="input-styles w-full" name={`operator-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("conditionSchema", index, 'operator', e.target.value)}>
+                                    {operator.map((op, index) => {
+                                        return (
+                                            <option key={index} value={op.value}>{op.name}</option>
+                                        );
+                                    })}
+                                </select>
+                            </div>
+                            <div className="w-1/4">
+                                <label htmlFor={`value-${index}`}>Value</label>
+                                <br />
+                                <input className="input-styles w-full" type="text" id={`value-${index}`} name={`value-${index}`} value={item.value} onChange={(e) => handleSchemaChange("conditionSchema", index, 'value', e.target.value)} />
+
+                            </div>
+
+
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button type="button" onClick={addFieldsConditionSchema} className=" text-white"> <IoMdInformationCircleOutline size={20} /> &nbsp; Add Fields +</Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Add more fileds to combine conditions.</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+
+                            <Button type="button" disabled variant="destructive" onClick={addFieldsConditionSchema} className=" text-white">Delete Fields </Button>
+
+                            {/* button for nesting conditions */}
+                            <Button disabled type="button">Combine conditions</Button>
                         </div>
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button type="button" onClick={addFieldsConditionSchema} className=" text-white"> <IoMdInformationCircleOutline size={20} /> &nbsp; Add Fields +</Button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>Add more fileds to combine conditions.</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
 
-                        <Button type="button" disabled variant="destructive" onClick={addFieldsConditionSchema} className=" text-white">Delete Fields </Button>
-
-                        {/* button for nesting conditions */}
-                        <Button disabled type="button">Combine conditions</Button>
-                    </div>
+                    </>
                 ))}
                 <br />
                 <br />
@@ -272,9 +293,12 @@ const CreateRule = () => {
 
                 <br />
                 <br />
-                <Button type="submit" className="">Create Rule</Button>
+                <Button type="submit" disabled={buttonState} >
+                    {buttonState ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                    {buttonState ? "Creating Rule" : "Create Rule"}
+                </Button>
             </form>
-            <ToastContainer />
+            <Toaster />
         </section>
     );
 }

@@ -10,7 +10,7 @@ const CreateRuleInformation = () => {
                 <p className="text-lg font-light">This page is for creating the rules mannually.
                 </p>
                 <br />
-                <p className="text-lg font-light">
+                <span className="text-lg font-light" >
 
                     In this DecisionDriver, you have to enter following details to create a rule:
                     <ul>
@@ -32,7 +32,7 @@ const CreateRuleInformation = () => {
                             4. <span className="font-semibold">Set Value:</span> Write the numeric value to compare.
                         </li>
                     </ul>
-                </p>
+                </span>
             </div>
         </div>
     )
