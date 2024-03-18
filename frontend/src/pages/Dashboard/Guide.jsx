@@ -4,7 +4,7 @@ const Guide = () => {
         <>
             <div className="w-full border-2 p-8">
                 <h1>Guide</h1>
-                <p>Objective</p>
+                <p>Problem statement</p>
                 <p>You’ ve been hired by a Bank to create a Decision Management Hub for all automated decisions made in bank.</p>
                 <p>In this DecisionDriver, analysts should be able to:
                     1. Write and modify rules

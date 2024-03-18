@@ -1,9 +1,9 @@
 
 const Examples = () => {
     return (
-        <div>
+        <section className="w-full">
             Examples
-        </div>
+        </section>
     )
 }
 
