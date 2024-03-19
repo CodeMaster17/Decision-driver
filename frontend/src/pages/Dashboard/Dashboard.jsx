@@ -11,6 +11,7 @@ import { GoPencil } from "react-icons/go";
 const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(true);
     const toggle = () => setIsOpen(!isOpen);
+    
     return (
         <section className="flex ">
             <div className={`h-screen sticky top-0 text-white  bg-[#1f273c] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-2 ${isOpen ? "w-[15vw]" : "w-[5vw]"}`}>
@@ -24,7 +25,7 @@ const Dashboard = () => {
                 <ul className="flex flex-col space-y-2 mt-12">
                     <li>
                         <Link to="/dashboard/guide"
-                            className=" flex px-[1rem] py-[0.8rem] focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
+                            className=" flex px-[1rem] py-[0.8rem] focus:bg-[#f0f8ff] focus:bg-opacity-25 focus:rounded-[0.5rem]"
                         >
                             <div className="mr-3 block"><FiBookOpen className="size-5" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Guide</h3>
