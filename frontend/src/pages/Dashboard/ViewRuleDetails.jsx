@@ -1,9 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import CreateRule from './CreateRule'
 import { useEffect, useState } from 'react'
 import ViewRaw from './ViewRaw'
 import { useParams } from 'react-router-dom'
 import ViewSQL from './ViewSQL'
+import ViewRule from './ViewRule'
 
 
 
@@ -18,6 +18,7 @@ const RuleComponent = () => {
             const res = await fetch(`http://localhost:5002/rule/get-rule-by-id/${id}`)
             const data = await res.json()
             setData(data)
+            // console.log(data)
             setLoading(false)
         } catch (err) {
             console.log(err)
@@ -38,7 +39,7 @@ const RuleComponent = () => {
                         <TabsTrigger className="w-1/3" value="sql">View SQL</TabsTrigger>
                     </TabsList>
                     <TabsContent value="create">
-                        {loading ? "Loading..." : <CreateRule />}
+                        {loading ? "Loading..." : <ViewRule />}
                     </TabsContent>
                     <TabsContent value="raw">
                         {loading ? "Loading..." : <ViewRaw json={data} />}
@@ -48,6 +49,8 @@ const RuleComponent = () => {
                     </TabsContent>
                 </Tabs>
             </div>
+            {/* {loading ? "Loading..." : <ViewRule />} */}
+
         </>
 
     );

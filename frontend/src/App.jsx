@@ -10,6 +10,9 @@ import CreateRule from './pages/Dashboard/CreateRule'
 import ViewAllRules from './pages/Dashboard/ViewAllRules'
 import Guide from './pages/Dashboard/Guide'
 import Examples from './pages/Dashboard/Examples'
+import Users from './pages/Dashboard/Users'
+import TestRule from './pages/Dashboard/TestRule'
+import TestRuleDetails from './pages/Dashboard/TestRuleDetails'
 function App() {
 
   return (
@@ -36,6 +39,9 @@ function App() {
             <Route path="/dashboard/view-rule/:id" element={<RuleComponent />} />
             <Route path="/dashboard/view-rule" element={<ViewAllRules />} />
             <Route path="/dashboard/view-rule/:id" element={<RuleComponent />} />
+            <Route path="/dashboard/users" element={<Users />} />
+            <Route path="/dashboard/test-rule" element={<TestRule />} />
+            <Route path="/dashboard/test-rule/:id" element={<TestRuleDetails />} />
           </Route>
 
         </Routes>

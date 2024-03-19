@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom"
+import { Link, NavLink, Outlet } from "react-router-dom"
 import Navbar from "../../components/Navbar"
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoCreateOutline } from "react-icons/io5";
@@ -23,37 +23,37 @@ const Dashboard = () => {
 
                 <ul className="flex flex-col space-y-2 mt-12">
                     <li>
-                        <Link to="/dashboard/guide"
+                        <NavLink to="/dashboard/guide"
                             className=" flex px-[1rem] py-[0.8rem] focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
                         >
                             <div className="mr-3 block"><FiBookOpen className="size-5" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Guide</h3>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/dashboard/examples"
+                        <NavLink to="/dashboard/examples"
                             className=" flex px-[1rem] py-[0.8rem] focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
                         >
                             <div className="mr-3 block"><GoPencil className="size-5" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Examples</h3>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/dashboard/home"
+                        <NavLink to="/dashboard/home"
                             className=" flex px-[1rem] py-[0.8rem] focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
                         >
                             <div className="mr-3 block"><LuLayoutDashboard className="size-5" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Dashboard</h3>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
 
-                        <Link to="/dashboard/create-rule"
+                        <NavLink to="/dashboard/create-rule"
                             className=" flex px-[1rem] py-[0.8rem] focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
                         >
                             <div className="mr-3 block"><IoCreateOutline className="size-6" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Create Rules</h3>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
 
@@ -66,30 +66,30 @@ const Dashboard = () => {
                     </li>
                     <li>
 
-                        <Link to="/dashboard/test-rule"
+                        <NavLink to="/dashboard/test-rule"
                             className=" flex px-[1rem] py-[0.8rem]  focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
                         >
                             <div className="mr-3 block"><AiOutlineFundView className="size-6" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Test Rules</h3>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
 
-                        <Link to="/dashboard/users"
-                            className=" flex px-[1rem] py-[0.8rem]  focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
+                        <NavLink to="/dashboard/users"
+                            className=" flex px-[1rem] py-[0.8rem] active:bg-[#c3dba9] active:bg-opacity-25 active:rounded-[0.5rem]  focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
                         >
                             <div className="mr-3 block"><AiOutlineFundView className="size-6" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Users</h3>
-                        </Link>
+                        </NavLink>
                     </li>
                     <hr className=" border-1 border-gray-500" />
                     <li>
-                        <Link to="/"
+                        <NavLink to="/"
                             className=" flex px-[1rem] py-[0.8rem]  focus:bg-[#c3dba9] focus:bg-opacity-25 focus:rounded-[0.5rem]"
                         >
                             <div className="mr-3 block"><CiLogout className="size-6" /></div>
                             <h3 className={`focus:text-[#CBF69E] ${isOpen ? "block" : "hidden"}`}>Home</h3>
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
             </div>

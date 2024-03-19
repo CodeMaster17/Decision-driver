@@ -14,7 +14,7 @@ app.get('/userdata', async (req, res) => {
     try {
         const todos = await pool.query('SELECT * from userdata;')
         console.log(todos.rows)
-        return (todos.rows)
+        res.status(201).send(todos.rows)
 
     } catch (error) {
         console.log("Fetching user error", error)
