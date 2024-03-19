@@ -20,3 +20,16 @@ app.get('/userdata', async (req, res) => {
         console.log("Fetching user error", error)
     }
 })
+app.get('/userdata/:sql', async (req, res) => {
+
+    console.log("PARAMS", req.params)
+
+    try {
+        const todos = await pool.query(req.params.sql)
+        console.log(res.json(todos.rows))
+        return res.json(todos.rows)
+
+    } catch (error) {
+        console.log("Fetching user error", error)
+    }
+})

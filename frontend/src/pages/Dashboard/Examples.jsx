@@ -1,4 +1,6 @@
 
+import { AiOutlineExclamationCircle } from "react-icons/ai"
+
 const Examples = () => {
     return (
         <section className="w-full p-8">
@@ -59,6 +61,52 @@ const Examples = () => {
             <br />
             <p>
                 Click on the 3 dots button on the right side of the rule to view that particular rule&apos;s details.
+            </p>
+            <br />
+            <div className="w-4/5">
+                <img src="/view-rules-button.jpeg" alt="Create rule png" />
+            </div>
+            <br />
+            <p className="text-lg">
+                Step 3: <b>Understanding the rule created</b>
+                <ul>
+                    <li>1. View Rule</li>
+                    <li>1. View in raw format</li>
+                    <li>1. View SQL generated from rule</li>
+                </ul>
+            </p>
+            <p>
+                1. View rule
+            </p>
+            <div className="w-4/5">
+                <img src="/view-rule-about.jpeg" alt="Create rule png" />
+            </div>
+            <br />
+            <p>
+                2. View in raw format
+            </p>
+            <br />
+            <div className="w-4/5">
+                <img src="/view-rules-raw.jpeg" alt="Create rule png" />
+            </div>
+            <br />
+            <p>
+                3. View SQL generated from rule
+            </p>
+            <br />
+            <div className="w-4/5">
+                <img src="/view-rules-sql.jpeg" alt="Create rule png" />
+            </div>
+            <p>Here you can copy the rule to test the rule in your terminal as well.</p>
+            <br />
+            <p className="text-lg">
+                Step 4: <b>Test Rule</b>
+                <div className="w-full">
+
+                    <div className="bg-red-300 flex items-center gap-2 p-4 rounded-lg">
+                        <AiOutlineExclamationCircle color="white" size={24} /> <span className="text-white">This feature is currently in aplha testing mode, and will be released soon.</span>
+                    </div>
+                </div>
             </p>
 
         </section>

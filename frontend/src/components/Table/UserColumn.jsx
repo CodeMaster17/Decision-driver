@@ -10,7 +10,7 @@ export const userColumns = [
     },
     {
         accessorKey: "cibil_score",
-        header: "Cibbil Score",
+        header: "Cibil Score",
     },
     {
         accessorKey: "debt_to_income_ratio",

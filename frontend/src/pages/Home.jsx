@@ -4,11 +4,7 @@ const Home = () => {
     return (
         <>
 
-            <div className="shadow-md w-full h-20 flex items-center gap-6 p-4">
-                <img src="/logo.png" alt="logo" className="w-12 h-12" />
-                <h3 className='text-2xl font-bold text-black flex items-center gap-4'>Decision Driver
-                </h3>
-            </div>
+            
             <div className=" w-full  h-screen flex gap-8">
                 <div className="w-1/2 pl-20 flex gap-8 items-center custom-img">
                     <div className='w-full'>

@@ -1,12 +1,16 @@
 import ViewUserTable from "@/components/Table/ViewUserTable"
 import { userColumns } from "@/components/Table/UserColumn"
 import { useEffect, useState } from "react"
+import ErrorComponent from "./ErrorComponent"
+import TableSkeleton from "@/components/Skeletons/TableSkeleton"
+import Heading from "@/components/Heading"
+
 
 const Users = () => {
     const [loading, setLoading] = useState(false)
 
     const [data, setData] = useState([])
-
+    const [error, setError] = useState(false)
     const countRules = async () => {
         try {
             setLoading(true)
@@ -17,7 +21,7 @@ const Users = () => {
             setData(data)
             setLoading(false)
         } catch (err) {
-            console.log(err)
+            setError(error)
         }
     }
 
@@ -26,10 +30,19 @@ const Users = () => {
         countRules();
     }, [])
     return (
-        <div>
-            {!loading ? <ViewUserTable columns={userColumns} data={data} /> : " Loading... "}
+        <>
+            {error ? <ErrorComponent /> : ""}
+            <div className="w-full p-8">
+                <Heading>
+                    Here is list of all users.
+                </Heading>
 
-        </div>
+            </div>
+            <div>
+                {!loading ? <ViewUserTable columns={userColumns} data={data} /> : <TableSkeleton />}
+
+            </div>
+        </>
     )
 }
 

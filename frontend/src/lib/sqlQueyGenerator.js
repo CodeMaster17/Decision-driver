@@ -3,7 +3,7 @@
 // This function takes a JSON object as input and returns a SQL query string.
 export function generateSQLQuery(json) {
     const conditions = json.conditionSchema || [];
-    let query = "SELECT * FROM your_table_name WHERE ";
+    let query = "SELECT * FROM userdata WHERE ";
     let isFirstCondition = true;
 
     function processCondition(condition) {
@@ -20,7 +20,7 @@ export function generateSQLQuery(json) {
             return nestedQuery;
         } else {
             // Process simple condition
-            let operator = condition.operator.toLowerCase();
+            let operator = condition.operator;
             switch (operator) {
                 case "Greater_Than":
                     operator = ">";

@@ -13,6 +13,8 @@ import Examples from './pages/Dashboard/Examples'
 import Users from './pages/Dashboard/Users'
 import TestRule from './pages/Dashboard/TestRule'
 import TestRuleDetails from './pages/Dashboard/TestRuleDetails'
+import Navbar from './components/Navbar'
+import ErrorComponent from './pages/Dashboard/ErrorComponent'
 function App() {
 
   return (
@@ -23,6 +25,7 @@ function App() {
         containerClassName="overflow-auto"
       /> */}
       <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} >
@@ -42,6 +45,7 @@ function App() {
             <Route path="/dashboard/users" element={<Users />} />
             <Route path="/dashboard/test-rule" element={<TestRule />} />
             <Route path="/dashboard/test-rule/:id" element={<TestRuleDetails />} />
+            <Route path="/dashboard/*" element={<ErrorComponent />} />
           </Route>
 
         </Routes>
