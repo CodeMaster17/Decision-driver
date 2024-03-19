@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { executeSqlQueryAndPerformActions } from '../../lib/sqlQueyGenerator';
+import { generateSQLQuery } from '../../lib/sqlQueyGenerator';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { LuCopy } from "react-icons/lu";
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import { LuCopyCheck } from "react-icons/lu";
 const ViewSQL = ({ data }) => {
 
 
-    const SQLQuery = executeSqlQueryAndPerformActions(data)
+    const SQLQuery = generateSQLQuery(data)
     const [copyStatus, setCopyStatus] = useState(true); // To indicate if the text was copied
 
     const onCopyText = () => {

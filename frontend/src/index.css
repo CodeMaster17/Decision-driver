@@ -82,5 +82,8 @@
   .input-styles {
     @apply border-2 border-border rounded-md p-2;
   }
-}
 
+  .active {
+    @apply bg-[#c3dba9] bg-opacity-25 rounded-[0.5rem];
+  }
+}

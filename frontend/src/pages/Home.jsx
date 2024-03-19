@@ -3,14 +3,15 @@ import { Link } from "react-router-dom"
 const Home = () => {
     return (
         <>
-
-            <div className="shadow-md w-full h-20 flex items-center gap-6 p-4 pl-20 ">
+            {/* <div className="shadow-md w-full h-20 flex items-center gap-6 p-4 pl-20 ">
                 <img src="/logo.png" alt="logo" className="w-10 h-10" />
                 <h3 className='text-2xl font-bold text-black flex items-center gap-4'>Decision Driver
                 </h3>
-            </div>
-            <div className=" w-full mt-5 flex gap-32">
-                <div className="w-1/2 pl-20 flex gap-8 items-center custom-img">
+            </div> */}
+            {/* <div className=" w-full mt-5 flex gap-32"> */}
+            
+            <div className=" w-full mt-5 flex gap-32">/
+                <div className="w-1/2 flex gap-8 items-center custom-img">
                     <div className='w-full'>
                         <h1 className='text-4xl font-bold text-black 2xl:text-5xl'>Rule Building</h1>
                         <h3 className='text-5xl font-bold text-black mt-5'>Made Easy through</h3>
@@ -55,7 +56,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className='w-1/2 flex items-center'>
-                    <div className='w-full h-[450px] my-16 border-l-2 border-y-2 border-slate-300 rounded-l-2xl pl-12 py-10 shadow-[0_3px_10px_rgb(0,0,0,0.2)] 2xl:h-[700px]'>
+                    <div className='w-full h-[450px] my-16 border-l-2 border-y-2 border-slate-300 rounded-l-2xl pl-12 py-10 shadow-[0_3px_10px_rgb(0,0,0,0.2)]'>
 
                         <h1 className='w-full text-3xl font-bold text-black border-l-2 border-y-2 border-slate-300 rounded-l-lg flex py-2 pl-5'>Features</h1>
                         <div className='mt-8 ml-10 text-xl font-semibold text-black leading-[3rem]'>

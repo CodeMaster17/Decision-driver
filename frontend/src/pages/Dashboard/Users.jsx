@@ -1,28 +1,26 @@
-
-
-import ViewRuleTable from "@/components/ViewRuleTable"
-import { columns } from '@/components/Column'
+import ViewUserTable from "@/components/Table/ViewUserTable"
+import { userColumns } from "@/components/Table/UserColumn"
 import { useEffect, useState } from "react"
 import ErrorComponent from "./ErrorComponent"
 import TableSkeleton from "@/components/Skeletons/TableSkeleton"
 import Heading from "@/components/Heading"
 
-// eslint-disable-next-line react/prop-types
-const ViewAllRules = () => {
 
+const Users = () => {
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(false)
-    const [data, setData] = useState([])
 
+    const [data, setData] = useState([])
+    const [error, setError] = useState(false)
     const countRules = async () => {
         try {
             setLoading(true)
-            const res = await fetch('http://localhost:5002/rule/get-all-rules')
+            console.log("fetching data")
+            const res = await fetch('http://localhost:5040/userdata')
             const data = await res.json()
+            console.log(data)
             setData(data)
             setLoading(false)
         } catch (err) {
-            // console.log(err)
             setError(error)
         }
     }
@@ -31,23 +29,21 @@ const ViewAllRules = () => {
     useEffect(() => {
         countRules();
     }, [])
-
-
     return (
         <>
-            <div className="w-full p-8">
-
-                <Heading>
-                    Here is the list of all created rules.
-                </Heading>
-            </div>
             {error ? <ErrorComponent /> : ""}
-            {loading ? <TableSkeleton />
-                : <ViewRuleTable columns={columns} data={data} />
-            }
+            <div className="w-full p-8">
+                <Heading>
+                    Here is list of all users.
+                </Heading>
 
+            </div>
+            <div>
+                {!loading ? <ViewUserTable columns={userColumns} data={data} /> : <TableSkeleton />}
+
+            </div>
         </>
     )
 }
 
-export default ViewAllRules
+export default Users

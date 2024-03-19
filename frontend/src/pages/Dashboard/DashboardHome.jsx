@@ -1,6 +1,8 @@
 
 import ActivityCard from "@/components/ActivityCard"
 import Heading from "@/components/Heading"
+import ActivityCardSkeleton from "@/components/Skeletons/ActivityCardSkeleton"
+import RuleCardSkeleton from "@/components/Skeletons/RuleCardSkeleton"
 import {
   Card,
   CardDescription,
@@ -8,10 +10,11 @@ import {
   CardTitle,
 
 } from "@/components/ui/card"
+
 import { propertyImportFromDB } from "@/lib/propertyImportFromDB"
 import { useEffect, useState } from "react"
 const DashboardHome = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [rulesNumber, setRulesNumber] = useState([])
   const [propertyNumber, setPropertyNumber] = useState(0)
   const [data, setData] = useState([])
@@ -29,8 +32,10 @@ const DashboardHome = () => {
     }
   }
   const propertyFromDB = async () => {
+    setLoading(true)
     const property = await propertyImportFromDB()
     setPropertyNumber(property.length)
+    setLoading(false)
     // console.log(property)
   }
 
@@ -80,7 +85,7 @@ const DashboardHome = () => {
         <br />
 
         {
-          loading ? "Loading..." :
+          loading ? <ActivityCardSkeleton /> :
             <div className="flex w-4/5 gap-4 ">
               <Card className="w-[20vw] shadow-lg">
                 <CardHeader>
@@ -100,10 +105,11 @@ const DashboardHome = () => {
           <Heading>
             Recent Activity
           </Heading>
+          <br />
           {
-            loading ? "Loading..." :
+            loading ? <RuleCardSkeleton /> :
               <div className="w-full mt-8 flex gap-4 flex-wrap">
-                {data.slice(5).map((rule, index) => (
+                {data.slice().reverse().slice(0, 6).map((rule, index) => (
                   <ActivityCard key={index} title={rule.name} testStatus={rule.tested} description={rule.description} id={rule._id} />
                 ))}
               </div>

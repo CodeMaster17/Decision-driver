@@ -76,7 +76,11 @@ export const columns = [
                 View Rule
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={`/dashboard/test-rule/${payment._id}`} >
+                Test Rule
+              </Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

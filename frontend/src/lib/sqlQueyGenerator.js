@@ -1,101 +1,112 @@
 
 
-// switch case according to value
-function valueToOperator(value) {
-    switch (value) {
-        case "Equal":
-            return "==";
-        case "Not_Equal":
-            return "!=";
-        case "Greater_Than":
-            return ">";
-        case "Less_Than":
-            return "<";
-        case "Greater_Than_or_Equal":
-            return ">=";
-        case "Less_Than_or_Equal":
-            return "<=";
-        default:
-            return "==";
-    }
-}
+// This function takes a JSON object as input and returns a SQL query string.
+export function generateSQLQuery(json) {
+    const conditions = json.conditionSchema || [];
+    let query = "SELECT * FROM userdata WHERE ";
+    let isFirstCondition = true;
 
-
-
-function buildSqlWhereClause(conditions) {
-    let whereClause = '';
-    if (conditions) {
-        conditions.forEach((condition, index) => {
-            const { property, operator, value, connectedBy } = condition;
-            if (index > 0) {
-                whereClause += ` ${connectedBy.toUpperCase()} `;
-            }
-            const operatorValue = valueToOperator(operator);
-            whereClause += `${property} ${operatorValue} '${value}'`;
-            if (condition.conditionSchema && condition.conditionSchema.length != 0) {
-                whereClause += ` (${buildSqlWhereClause(condition.conditionSchema)})`;
-            }
-        });
-    }
-    return whereClause;
-}
-export function executeSqlQueryAndPerformActions(ruleData) {
-    const whereClause = buildSqlWhereClause(ruleData.conditionSchema);
-    console.log(`SELECT * FROM users WHERE ${whereClause};`);
-    const answer = `SELECT * FROM users WHERE ${whereClause};`
-    return answer;
-    // console.log(answer)
-
-}
-
-
-
-const ruleData =
-{
-    "name": "UserEligibilityRule",
-    "description": "Determines if a user is eligible based on age, location, and subscription status.",
-    "tested": true,
-    "createdAt": "2024-03-15T00:00:00Z",
-    "updatedAt": "2024-03-15T00:00:00Z",
-    "conditionSchema": [
-        {
-            "property": "age",
-            "operator": "greaterThan",
-            "value": "18",
-            "connectedBy": "AND",
-            "conditionSchema": [
-                {
-                    "property": "location",
-                    "operator": "equals",
-                    "value": "US",
-                    "connectedBy": "AND",
-                    "conditionSchema": [
-                        {
-                            "property": "subscriptionStatus",
-                            "operator": "equals",
-                            "value": "active",
-                            "connectedBy": "AND"
-                        }
-                    ]
+    function processCondition(condition) {
+        if (condition.conditionSchema && condition.conditionSchema.length > 0) {
+            // Process nested conditions
+            let nestedQuery = "(";
+            condition.conditionSchema.forEach((nestedCondition, index) => {
+                nestedQuery += processCondition(nestedCondition);
+                if (index < condition.conditionSchema.length - 1) {
+                    nestedQuery += " " + condition.connectedBy + " ";
                 }
-            ]
+            });
+            nestedQuery += ")";
+            return nestedQuery;
+        } else {
+            // Process simple condition
+            let operator = condition.operator;
+            switch (operator) {
+                case "Greater_Than":
+                    operator = ">";
+                    break;
+                case "less_than":
+                    operator = "<";
+                    break;
+                case "Equal":
+                    operator = "=";
+                    break;
+                case "Not_Equal":
+                    operator = "<>";
+                    break;
+                case "Less_Than":
+                    operator = "<";
+                    break;
+                case "Greater_Than_or_Equal":
+                    operator = ">=";
+                    break;
+                case "Less_Than_or_Equal":
+                    operator = "<=";
+                    break;
+                default:
+                    operator = "=";
+            }
+            return `${condition.property} ${operator} '${condition.value}'`;
         }
-    ],
-    "actionSchema": [
-        {
-            "property": "status",
-            "result": "eligible",
-            "connectedBy": "AND",
-            "actionSchema": [
-                {
-                    "property": "sendEmail",
-                    "result": "Eligibility Confirmation",
-                    "connectedBy": "AND"
-                }
-            ]
+    }
+
+    conditions.forEach((condition, index) => {
+        if (!isFirstCondition) {
+            query += " " + condition.connectedBy + " ";
         }
-    ]
+        query += processCondition(condition);
+        isFirstCondition = false;
+    });
 
-};
+    return query;
+}
 
-executeSqlQueryAndPerformActions(ruleData);
+
+
+// const ruleData =
+// {
+//     "name": "UserEligibilityRule",
+//     "description": "Determines if a user is eligible based on age, location, and subscription status.",
+//     "tested": true,
+//     "createdAt": "2024-03-15T00:00:00Z",
+//     "updatedAt": "2024-03-15T00:00:00Z",
+//     "conditionSchema": [
+//         {
+//             "property": "age",
+//             "operator": "greaterThan",
+//             "value": "18",
+//             "connectedBy": "AND",
+//             "conditionSchema": [
+//                 {
+//                     "property": "location",
+//                     "operator": "equals",
+//                     "value": "US",
+//                     "connectedBy": "AND",
+//                     "conditionSchema": [
+//                         {
+//                             "property": "subscriptionStatus",
+//                             "operator": "equals",
+//                             "value": "active",
+//                             "connectedBy": "AND"
+//                         }
+//                     ]
+//                 }
+//             ]
+//         }
+//     ],
+//     "actionSchema": [
+//         {
+//             "property": "status",
+//             "result": "eligible",
+//             "connectedBy": "AND",
+//             "actionSchema": [
+//                 {
+//                     "property": "sendEmail",
+//                     "result": "Eligibility Confirmation",
+//                     "connectedBy": "AND"
+//                 }
+//             ]
+//         }
+//     ]
+
+// };
