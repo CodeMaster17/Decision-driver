@@ -12,6 +12,7 @@ import { PiUsersFourLight } from "react-icons/pi";
 const Dashboard = () => {
     const [isOpen, setIsOpen] = useState(true);
     const toggle = () => setIsOpen(!isOpen);
+    
     return (
         <section className="flex ">
             <div className={`h-screen sticky top-0 text-white  bg-[#1f273c] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] p-2 ${isOpen ? "w-[15vw]" : "w-[5vw]"}`}>
