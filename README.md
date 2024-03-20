@@ -2,7 +2,7 @@
 ![image](https://github.com/CodeMaster17/Decision-driver/assets/96763776/188605d7-c617-40e8-9939-8b4d3eb30912)
 
 
-Key Features:
+# Key Features:
 - 𐄳 Dynamic rule creation
 - ✔️ Dynamic SQL Generation
 - ➕ Dynamic JSON Generator
@@ -10,7 +10,7 @@ Key Features:
 - ✚ Combine multiple conditions together
 - ⚠️ Make rule and their and respective action
 
-Tech Stack:
+# Tech Stack:
 - Frontend: ReactJS
 - Backend: NodeJS
 - Database: PostreSQL, MongoDB
