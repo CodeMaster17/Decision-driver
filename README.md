@@ -5,10 +5,7 @@
 # Key Features:
 - 𐄳 Dynamic rule creation
 - ✔️ Dynamic SQL Generation
-- ➕ Dynamic JSON Generator
-- ⚡️ Realtime testing on database
-- ✚ Combine multiple conditions together
-- ⚠️ Make rule and their and respective action
+
 
 # Tech Stack:
 - Frontend: ReactJS
