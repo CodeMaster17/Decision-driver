@@ -13,7 +13,7 @@ const TestRule = () => {
     const countRules = async () => {
         try {
             setLoading(true)
-            const res = await fetch('http://localhost:5002/rule/get-all-rules')
+            const res = await fetch('https://decision-driver.onrender.com/rule/get-all-rules')
             const data = await res.json()
             setData(data)
             setLoading(false)
