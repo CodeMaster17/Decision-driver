@@ -5,7 +5,7 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.json())
 const pool = require('./database/connection.js')
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5040
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })
