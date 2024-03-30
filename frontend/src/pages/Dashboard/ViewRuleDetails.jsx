@@ -15,7 +15,7 @@ const RuleComponent = () => {
     const countRules = async () => {
         try {
             setLoading(true)
-            const res = await fetch(`http://localhost:5002/rule/get-rule-by-id/${id}`)
+            const res = await fetch(`https://decision-driver.onrender.com/rule/get-rule-by-id/${id}`)
             const data = await res.json()
             setData(data)
             // console.log(data)

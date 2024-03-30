@@ -128,7 +128,7 @@ const CreateRule = () => {
 
         setButtonState(true)
         try {
-            const response = await fetch('http://localhost:5002/rules/create', {
+            const response = await fetch('https://decision-driver.onrender.com/rules/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

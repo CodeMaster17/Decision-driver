@@ -24,7 +24,7 @@ const TestRuleDetails = () => {
         const countRules = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`http://localhost:5002/rule/get-rule-by-id/${id}`);
+                const res = await fetch(`https://decision-driver.onrender.com/rule/get-rule-by-id/${id}`);
                 const fetchedData = await res.json();
                 setData(fetchedData);
 
@@ -79,7 +79,7 @@ const TestRuleDetails = () => {
                 return;
             }
             setButtonState(true)
-            const response = await fetch(`http://localhost:5040/userdata/${SQLQuery}`)
+            const response = await fetch(`https://decision-driver-3869.vercel.app/userdata/${SQLQuery}`)
             const data = await response.json()
             setUserData(data)
             setButtonState(false)

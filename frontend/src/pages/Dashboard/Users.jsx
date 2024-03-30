@@ -15,7 +15,7 @@ const Users = () => {
         try {
             setLoading(true)
             console.log("fetching data")
-            const res = await fetch('http://localhost:5040/userdata')
+            const res = await fetch('https://decision-driver-3869.vercel.app/userdata')
             const data = await res.json()
             console.log(data)
             setData(data)
