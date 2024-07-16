@@ -17,7 +17,6 @@ import Navbar from './components/Navbar'
 import ErrorComponent from './pages/Dashboard/ErrorComponent'
 
 const MONGO_URI = import.meta.env.VITE_MONGODB_URI
-console.log(MONGO_URI)
 
 function App() {
 
@@ -51,10 +50,7 @@ function App() {
             <Route path="/dashboard/test-rule/:id" element={<TestRuleDetails />} />
             <Route path="/dashboard/*" element={<ErrorComponent />} />
           </Route>
-
         </Routes>
-
-
       </Router>
 
     </>
