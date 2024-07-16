@@ -33,7 +33,7 @@ const Home = () => {
                             <img src="/bank.jpg" alt="BankImage" className="size-40" />
                         </div>
                         <AlertDialogTitle>
-                            This application is not for regular users.
+                            Disclaimer: This application is not for regular users.
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             This application is not meant for regular users. It is built for the decision makers in banks.
@@ -49,7 +49,7 @@ const Home = () => {
                         <AlertDialogAction onClick={closeModal}>Ok</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
-            </AlertDialog> : ""
+            </AlertDialog>
 
             <div className=" w-full  h-screen flex gap-8">
                 <div className="w-1/2 pl-20 flex gap-8 items-center custom-img">
