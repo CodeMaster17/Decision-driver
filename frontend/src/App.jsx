@@ -15,6 +15,8 @@ import TestRule from './pages/Dashboard/TestRule'
 import TestRuleDetails from './pages/Dashboard/TestRuleDetails'
 import Users from './pages/Dashboard/Users'
 import ViewAllRules from './pages/Dashboard/ViewAllRules'
+import Login from './pages/Login'
+
 
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} >
             <Route path="/dashboard/guide" element={<Guide />} />
             <Route path="/dashboard/examples" element={<Examples />} />

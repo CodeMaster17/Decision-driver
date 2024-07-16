@@ -7,9 +7,9 @@ import {
     AlertDialogHeader,
     AlertDialogTitle
 } from "@/components/ui/alert-dialog"
+import { useAuth } from "@/lib/AuthContext"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-
 const Home = () => {
 
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -20,12 +20,14 @@ const Home = () => {
     function closeModal() {
         setDialogOpen(false)
     }
+    const { isAuthenticated } = useAuth();
     useEffect(() => {
         OpenDialog()
     }, [])
 
     return (
         <>
+
             <AlertDialog open={dialogOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
@@ -59,9 +61,21 @@ const Home = () => {
                         <h3 className='lg:text-6xl 2xl:text-7xl font-bold text-[#ADFA1D] mt-5 flex items-center gap-4'>Decision Driver
 
                         </h3>
-                        <Link to="/dashboard/home" className="flex justify-center rounded bg-primary p-2 font-medium text-white w-[130px] mt-8 ">
-                            Dashboard ➜
-                        </Link>
+
+                        {isAuthenticated ? (
+                            <Link to="/dashboard/home" className="flex justify-center rounded bg-primary p-2 font-medium text-white w-[130px] mt-8 ">
+                                Dashboard ➜
+                            </Link>
+                        ) : (
+                            <button className="flex justify-center rounded bg-primary p-2 font-medium text-white w-[130px] mt-8">
+                                <Link to="/login" className="flex justify-center rounded bg-primary font-medium text-white  ">
+                                    Sign In
+                                </Link>
+                            </button>
+                        )}
+
+
+
                         <br />
                         <div className="w-full rounded-md p-4 flex justify-start items-start gap-4 bg-[#f0f8ff]">
                             <div>
