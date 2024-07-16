@@ -1,31 +1,26 @@
 
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
+import CreateRule from './pages/Dashboard/CreateRule'
 import Dashboard from './pages/Dashboard/Dashboard'
 import DashboardHome from './pages/Dashboard/DashboardHome'
 import RuleComponent from './pages/Dashboard/ViewRuleDetails'
-import CreateRule from './pages/Dashboard/CreateRule'
+import Home from './pages/Home'
 
-import ViewAllRules from './pages/Dashboard/ViewAllRules'
-import Guide from './pages/Dashboard/Guide'
-import Examples from './pages/Dashboard/Examples'
-import Users from './pages/Dashboard/Users'
-import TestRule from './pages/Dashboard/TestRule'
-import TestRuleDetails from './pages/Dashboard/TestRuleDetails'
 import Navbar from './components/Navbar'
 import ErrorComponent from './pages/Dashboard/ErrorComponent'
+import Examples from './pages/Dashboard/Examples'
+import Guide from './pages/Dashboard/Guide'
+import TestRule from './pages/Dashboard/TestRule'
+import TestRuleDetails from './pages/Dashboard/TestRuleDetails'
+import Users from './pages/Dashboard/Users'
+import ViewAllRules from './pages/Dashboard/ViewAllRules'
 
 
 function App() {
-
   return (
     <>
-      {/* <Toaster
-        position="top-right"
-        reverseOrder={false}
-        containerClassName="overflow-auto"
-      /> */}
+
       <Router>
         <Navbar />
         <Routes>
