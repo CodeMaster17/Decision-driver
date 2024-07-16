@@ -16,7 +16,6 @@ import TestRuleDetails from './pages/Dashboard/TestRuleDetails'
 import Navbar from './components/Navbar'
 import ErrorComponent from './pages/Dashboard/ErrorComponent'
 
-const MONGO_URI = import.meta.env.VITE_MONGODB_URI
 
 function App() {
 
