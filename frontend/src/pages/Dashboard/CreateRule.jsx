@@ -239,10 +239,7 @@ const CreateRule = () => {
                                 <label htmlFor={`value-${index}`}>Value</label>
                                 <br />
                                 <input className="input-styles w-full" type="text" id={`value-${index}`} name={`value-${index}`} value={item.value} onChange={(e) => handleSchemaChange("conditionSchema", index, 'value', e.target.value)} />
-
                             </div>
-
-
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>

@@ -36,11 +36,15 @@ exports.countRules = async (req, res) => {
     }
 }
 
-// get all rules
 exports.getAllRules = async (req, res) => {
     try {
-        const rules = await Rule.find({})
-        res.status(201).json(rules);
+        // Extract sort field and order from query parameters
+        const sortField = req.query.sortField || "createdAt"; // Default sort field
+        const sortOrder = req.query.sortOrder === "asc" ? 1 : -1; // Default sort order (descending if not specified)
+        console.log("Get all rules")
+        // Fetch and sort rules from the database
+        const rules = await Rule.find({}).sort({ [sortField]: sortOrder });
+        res.status(200).json(rules); // Changed status code to 200 for successful response
     } catch (error) {
         res.status(500).send({
             message: error.message || "Some error occurred while getting the rules."
