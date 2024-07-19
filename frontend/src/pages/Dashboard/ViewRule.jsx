@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { RENDER_LINK } from "@/routes";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 const ConditionSchemaDisplay = ({ schema }) => {
@@ -31,7 +32,7 @@ const ViewRule = () => {
         try {
             console.log("inside try catch")
             setLoading(true)
-            const res = await fetch(`https://decision-driver.onrender.com/rule/get-rule-by-id/${id}`)
+            const res = await fetch(`${RENDER_LINK}/rule/get-rule-by-id/${id}`)
             const data = await res.json()
             setData(data)
             setConditionSchema(data.conditionSchema)

@@ -4,6 +4,7 @@ import ViewRaw from './ViewRaw'
 import { useParams } from 'react-router-dom'
 import ViewSQL from './ViewSQL'
 import ViewRule from './ViewRule'
+import { RENDER_LINK } from '@/routes'
 
 
 
@@ -15,7 +16,7 @@ const RuleComponent = () => {
     const countRules = async () => {
         try {
             setLoading(true)
-            const res = await fetch(`https://decision-driver.onrender.com/rule/get-rule-by-id/${id}`)
+            const res = await fetch(`${RENDER_LINK}/rule/get-rule-by-id/${id}`)
             const data = await res.json()
             setData(data)
             // console.log(data)

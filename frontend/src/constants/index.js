@@ -49,3 +49,17 @@ export const connectedBy = [
         value: "Or"
     }
 ]
+
+
+export const BooleanValue = [
+    {
+        id: 1,
+        name: "True",
+        value: true
+    },
+    {
+        id: 2,
+        name: "False",
+        value: false
+    }
+]

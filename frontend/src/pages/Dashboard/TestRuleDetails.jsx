@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { Loader2 } from "lucide-react";
 import ViewUserTable from '@/components/Table/ViewUserTable'
 import { userColumns } from '@/components/Table/UserColumn'
+import { RENDER_LINK } from '@/routes'
 const TestRuleDetails = () => {
     const { toast } = useToast()
     const [buttonState, setButtonState] = useState(false)
@@ -24,7 +25,7 @@ const TestRuleDetails = () => {
         const countRules = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`https://decision-driver.onrender.com/rule/get-rule-by-id/${id}`);
+                const res = await fetch(`${RENDER_LINK}/rule/get-rule-by-id/${id}`);
                 const fetchedData = await res.json();
                 setData(fetchedData);
 

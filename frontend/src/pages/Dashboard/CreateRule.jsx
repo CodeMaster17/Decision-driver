@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
-import { connectedBy, operator } from "../../constants";
-import { propertyImportFromDB } from "../../lib/propertyImportFromDB";
+import CreateRuleInformation from "@/components/CreateRuleInformation";
+import Heading from "@/components/Heading";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/toaster";
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import CreateRuleInformation from "@/components/CreateRuleInformation";
-import Heading from "@/components/Heading";
-import { useToast } from "@/components/ui/use-toast"
-import { Toaster } from "@/components/ui/toaster"
+} from "@/components/ui/tooltip";
+import { useToast } from "@/components/ui/use-toast";
+import { actionImportFromDB } from "@/lib/actionImportFromDB";
+import { RENDER_LINK } from "@/routes";
 import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { BooleanValue, connectedBy, operator } from "../../constants";
+import { propertyImportFromDB } from "../../lib/propertyImportFromDB";
 const CreateRule = () => {
     const { toast } = useToast()
     const [buttonState, setButtonState] = useState(false)
@@ -30,16 +32,25 @@ const CreateRule = () => {
                 conditionSchema: []
             }
         ],
+        // actionSchema: [
+        //     {
+        //         property: 'income',
+        //         result: 'Not_Equal',
+        //         connectedBy: 'AND',
+        //         actionSchema: []
+        //     }
+        // ]
         actionSchema: [
             {
-                property: 'income',
-                result: 'Not_Equal',
+                property: 'loan',
+                result: true,
                 connectedBy: 'AND',
                 actionSchema: []
             }
         ]
     });
 
+    // adding initial values for ondition schema
     const addFieldsConditionSchema = () => {
         setRuleFormData(prevState => ({
             ...prevState,
@@ -56,6 +67,7 @@ const CreateRule = () => {
         }));
     };
 
+    // adding initial values to actions
     const addFieldsActionSchema = () => {
         setRuleFormData(prevState => ({
             ...prevState,
@@ -72,14 +84,23 @@ const CreateRule = () => {
     };
 
     const [property, setProperty] = useState([])
+    const [actionProperty, setActionProperty] = useState([])
     // get property from db
     const propertyFromDB = async () => {
         const property = await propertyImportFromDB()
         setProperty(property)
     }
 
+    // get action property from DB
+    const actionFromDB = async () => {
+        const actions = await actionImportFromDB()
+        setActionProperty(actions)
+        // const actionProperty = await 
+    }
+
     useEffect(() => {
         propertyFromDB()
+        actionFromDB()
     }, [])
 
     const handleSchemaChange = (schemaType, index, field, value) => {
@@ -128,7 +149,7 @@ const CreateRule = () => {
 
         setButtonState(true)
         try {
-            const response = await fetch('https://decision-driver.onrender.com/rules/create', {
+            const response = await fetch(`${RENDER_LINK}/rules/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -254,9 +275,8 @@ const CreateRule = () => {
                             <div className="w-1/3">
                                 <label htmlFor={`property-${index}`}>Property</label>
                                 <br />
-                                {/* <input type="text" id={`property-${index}`} className=" input-styles w-full" name={`property-${index}`} value={item.property} onChange={(e) => handleSchemaChange("actionSchema", index, 'property', e.target.value)} /> */}
                                 <select className="input-styles w-full" name={`property-${index}`} id={`operator-${index}`} onChange={(e) => handleSchemaChange("actionSchema", index, 'property', e.target.value)}>
-                                    {property.map((op, index) => {
+                                    {actionProperty.map((op, index) => {
                                         return (
                                             <option key={index} value={op.value}>{op.name}</option>
                                         );
@@ -265,9 +285,17 @@ const CreateRule = () => {
                             </div>
 
                             <div className="w-1/3">
-                                <label htmlFor={`result-${index}`}>Result</label>
+                                <label htmlFor={`result-${index}`}>Decision</label>
                                 <br />
-                                <input type="text" id={`result-${index}`} className=" input-styles w-full" name={`result-${index}`} value={item.result} onChange={(e) => handleSchemaChange("actionSchema", index, 'result', e.target.value)} />
+                                {/* <input type="text" id={`result-${index}`} className=" input-styles w-full" name={`result-${index}`} value={item.result} onChange={(e) => handleSchemaChange("actionSchema", index, 'result', e.target.value)} /> */}
+
+                                <select className="input-styles w-full" name={`result-${index}`} id={`result-${index}`} onChange={(e) => handleSchemaChange("actionSchema", index, 'result', e.target.value)}>
+                                    {BooleanValue.map((op, index) => {
+                                        return (
+                                            <option key={index} value={op.value}>{op.name}</option>
+                                        );
+                                    })}
+                                </select>
                             </div>
                             <div className="w-1/3">
                                 <label htmlFor={`connectedBy-${index}`}>Connected By</label>

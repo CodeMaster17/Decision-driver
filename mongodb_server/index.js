@@ -13,7 +13,10 @@ app.use(express.json())
 
 
 app.post('/create-property', dataController.createProperty);
+app.post('/create-action', dataController.createAction);
 app.get('/get-property', dataController.getAllProperty);
+app.get('/get-actions', dataController.getAllActions);
+
 app.post('/rules/create', ruleController.createRule);
 app.get('/rule/count', ruleController.countRules);
 app.get('/rule/get-all-rules', ruleController.getAllRules);

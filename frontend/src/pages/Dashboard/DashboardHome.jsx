@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card"
 
 import { propertyImportFromDB } from "@/lib/propertyImportFromDB"
+import { RENDER_LINK } from "@/routes"
 import { useEffect, useState } from "react"
 const DashboardHome = () => {
   const [loading, setLoading] = useState(true)
@@ -22,7 +23,7 @@ const DashboardHome = () => {
   const countRules = async () => {
     try {
       setLoading(true)
-      const res = await fetch('https://decision-driver.onrender.com/rule/get-all-rules')
+      const res = await fetch(`${RENDER_LINK}/rule/get-all-rules`)
       const data = await res.json()
       setData(data)
       setRulesNumber(data.length)

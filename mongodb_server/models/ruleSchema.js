@@ -26,7 +26,7 @@ const actionSchema = new mongoose.Schema({
         required: true,
     },
     result: {
-        type: String,
+        type: Boolean,
         required: true,
     },
     connectedBy: {

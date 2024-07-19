@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import ErrorComponent from "./ErrorComponent"
 import TableSkeleton from "@/components/Skeletons/TableSkeleton"
 import Heading from "@/components/Heading"
+import { RENDER_LINK } from "@/routes"
 
 // eslint-disable-next-line react/prop-types
 const ViewAllRules = () => {
@@ -17,7 +18,7 @@ const ViewAllRules = () => {
     const countRules = async () => {
         try {
             setLoading(true)
-            const res = await fetch('https://decision-driver.onrender.com/rule/get-all-rules')
+            const res = await fetch(`${RENDER_LINK}/rule/get-all-rules`)
             const data = await res.json()
             setData(data)
             setLoading(false)

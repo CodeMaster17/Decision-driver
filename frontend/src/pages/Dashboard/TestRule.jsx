@@ -5,6 +5,7 @@ import ViewRuleTable from "@/components/ViewRuleTable"
 import { useEffect, useState } from "react"
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import ErrorComponent from "./ErrorComponent";
+import { RENDER_LINK } from "@/routes";
 const TestRule = () => {
     const [loading, setLoading] = useState(false)
 
@@ -13,7 +14,7 @@ const TestRule = () => {
     const countRules = async () => {
         try {
             setLoading(true)
-            const res = await fetch('https://decision-driver.onrender.com/rule/get-all-rules')
+            const res = await fetch(`${RENDER_LINK}/rule/get-all-rules`)
             const data = await res.json()
             setData(data)
             setLoading(false)
